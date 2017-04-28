@@ -116,13 +116,29 @@ Lothar Soto Palma} % Author
 		\subsection{Elementos del modelo}
 		\subsection{Metodología}
 	\section{Modelo de arquitectura del motor de búsqueda de Google}
+		Partiendo del modelo de arquitectura más general, vamos a ver algunos detalles particulares que incluye Google para optimizar los resultados de las búsquedas.
+		\begin{itemize}
+			\item  Las estructuras de datos usadas están optimizadas para manejar grandes colecciones de datos.
+			\item El crawling se realiza usando una gran cantidad de crawlers de forma distribuida.
+			\item Las páginas webs obtenidas mediante el crawling se almacenan comprimidas en un repositorio. La función de indexación descomprime los documentos y los parsea para crear el indice.
+			% BARRELS
+			% anchor text
+		\end{itemize}
 		\subsection{Características}
 		\subsection{Metodología}
+		Para mejorar la precisión de los resultados obtenidos la búsqueda en Google hace uso de una estructura de grafo asignando a cada enlace un peso que indica su "calidad".
+		De esta forma se calcula el llamado PageRank que proporciona una medida de la calidad e importancia de la página. Este valor se calcula sumando el número de enlaces a la pagina normalizados por un parámetro d que indica su importancia.
+		
+		El PageRank puede interpretarse como el comportamiento de un usuario que navega aleatoriamente. Dicho usuario navega entre las distintas webs a través de los enlaces de dichas páginas. Además se tiene en cuenta que el usuario puede en un momento dado abandonar la página actual.
 
 	\begin{thebibliography}{9}
-
+	
 		 \bibitem{Multi-tier architecture for Web Search Engines}
 		 \url{http://www.cwr.cl/la-web/2003/stamped/15_risvik_k-updates.pdf}
+		 \bibitem{The anatomy of a large-scale hypertextual Web search engineThe anatomy of a large-scale hypertextual Web search engine}
+		 \url{http://www.sciencedirect.com/science/article/pii/S016975529800110X?via\%3Dihub}
 
 	\end{thebibliography}
 \end{document}
+\grid
+\grid
