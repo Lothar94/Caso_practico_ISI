@@ -138,21 +138,25 @@ Lothar Soto Palma} % Author
 			\item \textbf{Dispatcher}: Por último el dispatcher es el encargado de la recepción de la consulta realizada desde el buscador y enviarla al servidor que realiza el cotejamiento con el índice para posteriormente obtener una lista ordenada por una puntuación denominada relevancia de URLs.
 		\end{itemize}
 	\section{Modelo de arquitectura del motor de búsqueda de Google}
+		\subsection{Características}
+		\subsection{Metodología}
 		Partiendo del modelo de arquitectura más general, vamos a ver algunos detalles particulares que incluye Google para optimizar los resultados de las búsquedas.
 		\begin{itemize}
 			\item Las estructuras de datos usadas están optimizadas para manejar grandes colecciones de datos.
 			\item El crawling se realiza usando una gran cantidad de crawlers de forma distribuida.
 			\item Las páginas webs obtenidas mediante el crawling se almacenan comprimidas en un repositorio. La función de indexación descomprime los documentos y los parsea para crear el indice.
+			\item Otra aspecto a tener en cuenta es el texto de los enlaces, ya que normalmente contienen la mejor descripción de la página.
 			% BARRELS
-			% anchor text
 		\end{itemize}
-		\subsection{Características}
-		\subsection{Metodología}
-		Para mejorar la precisión de los resultados obtenidos la búsqueda en Google hace uso de una estructura de grafo asignando a cada enlace un peso que indica su "calidad".
-		De esta forma se calcula el llamado PageRank que proporciona una medida de la calidad e importancia de la página. Este valor se calcula sumando el número de enlaces a la pagina normalizados por un parámetro d que indica su importancia.
+		
+		
+		\subsection{PageRank}
+		Para mejorar la precisión de los resultados obtenidos en la búsqueda, Google hace uso de una estructura de grafo de la red asignando a cada enlace un peso que indica su calidad.De esta forma se calcula el llamado PageRank que proporciona una medida de la importancia de la página en función de las páginas que contienen enlaces a la misma. Este valor se calcula sumando el número de enlaces a la pagina normalizados por un parámetro $d$ que indica la importancia de la página de la que procede el enlace.
 
-		El PageRank puede interpretarse como el comportamiento de un usuario que navega aleatoriamente. Dicho usuario navega entre las distintas webs a través de los enlaces de dichas páginas. Además se tiene en cuenta que el usuario puede en un momento dado abandonar la página actual.
-
+		El PageRank puede interpretarse como el comportamiento de un usuario que navega aleatoriamente. Dicho usuario navega entre las distintas webs a través de los enlaces de dichas páginas. Además se tiene en cuenta que el usuario puede en un momento dado abandonar la página actual.Dada una página A, un conjunto de páginas $T_i$ que enlazan a A y un parámetro de probabilidad de teletransporte $d$ su PageRank se calcula como:\\
+		\[
+		 PR(A)=(1-d)+d(\frac{PR(T_1)}{C(T_1)}+...+\frac{PR(T_n)}{C(T_n)})
+		\]
 	\begin{thebibliography}{9}
 
 		 \bibitem{Multi-tier architecture for Web Search Engines}
@@ -162,5 +166,6 @@ Lothar Soto Palma} % Author
 
 	\end{thebibliography}
 \end{document}
+\grid
 \grid
 \grid
