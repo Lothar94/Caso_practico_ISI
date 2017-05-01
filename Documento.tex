@@ -111,8 +111,24 @@ Lothar Soto Palma} % Author
 
 	\section{Introducción}
 	Actualmente los motores de búsqueda son necesarios en nuestras vidas, cuando un usuario tiene una necesidad de información se dirige a una fuente de conocimiento para intenter suplirla, debido al reciente crecimiento del número de webs, Internet se ha convertido en una fuente de conocimiento masiva, como consecuencia los motores de búsqueda web se han vuelto muy importantes y la necesidad de obtener una arquitectura para estos sistemas que óptimice la realización de búsquedas es ahora una necesidad. En este documento vamos a analizar cada uno de los elementos de la arquitectura de un motor de búsqueda.
+
+	Pero antes de eso es necesario conocer el entorno en el que trabajan dichos motores de búsuqeda:
+	\section{La WWW}
+	La WWW o World Wide Web es un sistema de distribución de documentos de hipertexto que están interconectados y son accesibles vía internet. El usuario a través de un navegador web visualiza el contenido proporcionado por la web compuesto por elementos multimedia y texto.
+
+	Pero la web es un entorno con unas características un poco adversas a la hora de poder hacer búsquedas sobre ellas esto es debido a su escala, volatilidad y variabilidad de la calidad de las mismas.
+
+	En la web no hay un diseño general, aparte de incluir información verídica puede incluir información obsoleta y contradicciones, el contenido es generado dinámicamente en el tiempo por lo que es necesario volver a analizar cada web para incluirlas en los resultados de las búsquedas de forma rutinaria y por último tiene un gran crecimiento llegando a duplicarse cada pocos meses.
+
 	\section{Modelo de arquitectura referente de motores de búsqueda}
+	\subsection{Elementos del modelo}
 	Los motores de búsqueda que operan en internet tienen comunmente una arquitectura centralizada, los elementos que componen esta arquitectura son:
+	\begin{figure}[H]
+	    \centering
+    	\includegraphics[scale=0.75]{./img/modeloreferente.png}
+	    \caption{Modelo de referencia}
+	    \label{fig:my_label}
+	\end{figure}
 		\begin{itemize}
 			\item \textbf{Crawler}: Un crawler o una araña es normalmente un módulo que se encarga de la agregación al sistema de los documentos que posteriormente serán indexados para su búsqueda. De forma obvia la obtención de documentos de Internet no es una cuestión sencilla de resolver debido a la naturaleza descentralizada de la web. El funcionamiento básico de un crawler o araña es:
 				\begin{verbatim}
@@ -134,9 +150,19 @@ Lothar Soto Palma} % Author
 					\item Modelo Vectorial: Este modelo a diferencia del alterior tiene en cuenta la frecuencia de aparición de un término en los documentos (tf), sin embargo a lo largo del tiempo han surgido modelos que tienen en cuenta la frecuencia inversa de aparición de un término en un documento (idf), y otro modelo que combina las dos ideas anteriorer llamado modelo tf-idf.
 					\item Modelo Probabilistico: El modelo probabilistico se centra en la probabilidad de aparición de un término en un documento.
 				\end{itemize}
-			\item \textbf{Searcher}: El buscador es aquel módulo que normalmente se ejecuta sobre un entorno web con un navegador, es el encargado de la realización de consultas sobre el índice creado por el indexador anterior.
-			\item \textbf{Dispatcher}: Por último el dispatcher es el encargado de la recepción de la consulta realizada desde el buscador y enviarla al servidor que realiza el cotejamiento con el índice para posteriormente obtener una lista ordenada por una puntuación denominada relevancia de URLs.
+			\item \textbf{Searcher}: El buscador es aquel módulo que normalmente se encarga de el procesamiento de las consultasque se realizan normalmente a través de un entorno web con un navegador, es el encargado de la realización de consultas sobre el índice creado por el indexador anterior.
+			\item \textbf{Dispatcher}: Por último el dispatcher es el encargado de la recepción de la consulta realizada desde el buscador y enviarla al buscador que realizará el cotejamiento con el índice para posteriormente obtener una lista ordenada por una puntuación denominada relevancia de URLs que será mostrada a los usuarios a traves del cliente.
 		\end{itemize}
+
+		\subsection{Medida de relevancia}
+		El grado de relevancia de un documento web es un medida que resulta necesaria definir para que el resto de procedimientos puedan trabajar correctamente, sin embargo la definición de esta medida no es simple puesto que depende normalmente del modelo de indexación que se lleve a cabo. La relevancia de un documento normalmente depende directamente de la consulta que se ha realizado, pero hay algunos casos en elas que se supone que la relevancia puede verse como la suma de dos componentes una que depende de la consulta llamada componente dinámica y otra que no depende llamada componente estática, por supuesto esta no es la única forma de medir la relevancia ya que no hay un método específico, otros ejemplos son:
+		\begin{itemize}
+			\item Coeficiente de Jaccard en modelos de indexación binarios.
+			\item Coseno en modelos de indexación vectorial de tipo tf-idf.
+		\end{itemize}
+
+	\section{Modelo de arquitectura multi-capa para motores de búsqueda}
+
 	\section{Modelo de arquitectura del motor de búsqueda de Google}
 		\subsection{Características}
 		\subsection{Metodología}
@@ -145,7 +171,7 @@ Lothar Soto Palma} % Author
 			\item Las estructuras de datos usadas están optimizadas para manejar grandes colecciones de datos.
 			\item El crawling se realiza usando una gran cantidad de crawlers de forma distribuida.
 			\item Las páginas webs obtenidas mediante el crawling se almacenan comprimidas en un repositorio. La función de indexación descomprime los documentos y los parsea para crear el indice.
-			\item Otra aspecto a tener en cuenta es el texto de los enlaces, ya que normalmente contienen la mejor descripción de la página.
+			\item Otro aspecto a tener en cuenta es el texto de los enlaces, ya que normalmente contienen la mejor descripción de la página.
 			% BARRELS
 		\end{itemize}
 		
@@ -166,6 +192,9 @@ Lothar Soto Palma} % Author
 
 	\end{thebibliography}
 \end{document}
+<<<<<<< HEAD
 \grid
 \grid
 \grid
+=======
+>>>>>>> a4980d906b0351f664537fff14e26e4e2a4a2f32
