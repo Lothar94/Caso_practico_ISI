@@ -59,7 +59,31 @@
 \frametitle{Índice}
 \tableofcontents
 \end{frame}
+\begin{frame}
+	\frametitle{Arquitectura de Google}
+	\begin{figure}
+	\includegraphics[scale=0.33]{img/google_architecture.png}
+\end{figure}
+	\end{frame}
+\begin{frame}
+	\frametitle{}
+\begin{itemize}
+	\item Las estructuras de datos usadas están optimizadas para manejar grandes colecciones de datos.
+	\item Se hace uso del modelo MapReduce para la creación de los índices.
+	\item El crawling se realiza usando una gran cantidad de crawlers de forma distribuida.
+	\item Las páginas webs obtenidas mediante el crawling se almacenan comprimidas en un repositorio. La función de indexación descomprime los documentos y los parsea para crear el indice.
+	\item Otro aspecto a tener en cuenta es el texto de los enlaces, ya que normalmente contienen la mejor descripción de la página.
+\end{itemize}		
+\end{frame}
 
+\begin{frame}
+	\frametitle{PageRank}
+Proporciona una medida de la importancia de la página en función de las páginas que contienen enlaces a la misma. Este valor se calcula sumando el número de enlaces a la pagina normalizados por un parámetro $d$ que indica la importancia de la página de la que procede el enlace.
+
+\[
+PR(A)=(1-d)+d(\frac{PR(T_1)}{C(T_1)}+...+\frac{PR(T_n)}{C(T_n)})
+\]
+\end{frame}
 \end{document}
               
             

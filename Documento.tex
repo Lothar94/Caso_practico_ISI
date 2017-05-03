@@ -164,15 +164,14 @@ Lothar Soto Palma} % Author
 	\section{Modelo de arquitectura multi-capa para motores de búsqueda}
 
 	\section{Modelo de arquitectura del motor de búsqueda de Google}
-		\subsection{Características}
 		\subsection{Metodología}
 		Partiendo del modelo de arquitectura más general, vamos a ver algunos detalles particulares que incluye Google para optimizar los resultados de las búsquedas.
 		\begin{itemize}
 			\item Las estructuras de datos usadas están optimizadas para manejar grandes colecciones de datos.
+			\item Se hace uso del modelo MapReduce para la creación de los índices.
 			\item El crawling se realiza usando una gran cantidad de crawlers de forma distribuida.
 			\item Las páginas webs obtenidas mediante el crawling se almacenan comprimidas en un repositorio. La función de indexación descomprime los documentos y los parsea para crear el indice.
 			\item Otro aspecto a tener en cuenta es el texto de los enlaces, ya que normalmente contienen la mejor descripción de la página.
-			% BARRELS
 		\end{itemize}
 		
 		
@@ -192,9 +191,7 @@ Lothar Soto Palma} % Author
 
 	\end{thebibliography}
 \end{document}
-<<<<<<< HEAD
 \grid
 \grid
 \grid
-=======
->>>>>>> a4980d906b0351f664537fff14e26e4e2a4a2f32
+
