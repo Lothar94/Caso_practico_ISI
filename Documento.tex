@@ -120,6 +120,13 @@ Lothar Soto Palma} % Author
 
 	En la web no hay un diseño general, aparte de incluir información verídica puede incluir información obsoleta y contradicciones, el contenido es generado dinámicamente en el tiempo por lo que es necesario volver a analizar cada web para incluirlas en los resultados de las búsquedas de forma rutinaria y por último tiene un gran crecimiento llegando a duplicarse cada pocos meses.
 
+	\section{Busquedas en internet}
+	Un buscador web tiene que tener conocimiento de todas las webs para satisfacer las consultas de los usuarios la manera de hacer esto puede diferir dependiendo del sistema utilizado, el proceso más común es la construcción de un índice invertido donde las palabras de cada página son añadidas al índice que están enlazadas con los documentos en los que se encontró la palabra. El motor de búsqueda unicamente se encarga de escanear el índice para determinar los documentos que contienen las palabras de las que se compone la consulta y estos se añaden al conjunto de resultados.
+		
+	Para realizar una consulta sobre internet es necesario indexar las páginas de las que se compone para ello es necesaria la paralelización y el uso de miles de máquinas, si tuvieramos 5000 máquinas podriamos indexar un billón de páginas aproximadamente en un día pero Internet es varias magnitudes más grande por lo que se necesita aumentar el número de máquinas y una forma inteligente de elegir que páginas webs indexar y cómo. 
+	
+	Pero hay otros problemas como el almacenamiento del índice, normalmente este no puede ser alojado en una única máquina asi que la cantidad de datos tiene que ser distribuido entre los discos de cada máquina. Además la distribución de los datos de al almacenamiento también ayuda al rendimiento de la consulta, la tarea de escanear las secciones de las webs y combinar las coincidencias en una etapa posterior.
+	 
 	\section{Modelo de arquitectura referente de motores de búsqueda}
 	\subsection{Elementos del modelo}
 	Los motores de búsqueda que operan en internet tienen comunmente una arquitectura centralizada, los elementos que componen esta arquitectura son:
@@ -135,10 +142,10 @@ Lothar Soto Palma} % Author
 					- Partimos de un conjunto semilla de URLs iniciales
 					- Establecemos una cola con prioridad en la que se irán incluyen las URLs anteriores
 					- Para cada URL de la cola:
-						- Descargamos el contenido de la web
-						- Estraemos los términos de indexación
-						- Incluimos los links de la web en la cola con prioridad
-						- Se vuelve a añadir a la cola la URL analizada
+					    - Descargamos el contenido de la web
+					    - Estraemos los términos de indexación
+					    - Incluimos los links de la web en la cola con prioridad
+					    - Se vuelve a añadir a la cola la URL analizada
 				\end{verbatim}
 				Pero este proceso básico no es lo único a tener en cuenta de hecho las arañas suelen necesitar la ayuda de los servidores webs que analizan, con la aportación de datos que permiten entre otras cosas excluir webs del servidor de la araña o moderar el número de peticiones por minuto.
 
@@ -160,9 +167,7 @@ Lothar Soto Palma} % Author
 			\item Coeficiente de Jaccard en modelos de indexación binarios.
 			\item Coseno en modelos de indexación vectorial de tipo tf-idf.
 		\end{itemize}
-
-	\section{Modelo de arquitectura multi-capa para motores de búsqueda}
-
+		
 	\section{Modelo de arquitectura del motor de búsqueda de Google}
 		\subsection{Metodología}
 		Partiendo del modelo de arquitectura más general, vamos a ver algunos detalles particulares que incluye Google para optimizar los resultados de las búsquedas.
@@ -182,6 +187,10 @@ Lothar Soto Palma} % Author
 		\[
 		 PR(A)=(1-d)+d(\frac{PR(T_1)}{C(T_1)}+...+\frac{PR(T_n)}{C(T_n)})
 		\]
+		
+		\section{Modelo de arquitectura multi-capa para motores de búsqueda}
+		La principal diferencia de esta arquitectura es la introducción de nodos de búsqueda, un nodo de búsqueda contiene una partición del índice de búsqueda, una parte de todos los datos. Esto produce cambios en la escalabilidad del sistema y en la estructura del mismo.
+		\subsection{Elementos del modelo}
 	\begin{thebibliography}{9}
 
 		 \bibitem{Multi-tier architecture for Web Search Engines}
