@@ -60,6 +60,52 @@
 \tableofcontents
 \end{frame}
 \begin{frame}
+	\frametitle{Introducción}
+	Internet se ha convertido en una fuente de conocimiento masiva, como consecuencia los motores de búsqueda web se han vuelto muy importantes y la necesidad de obtener una arquitectura para estos sistemas que óptimice la realización de búsquedas es ahora una necesidad.
+	
+	\medskip
+	En la web nos encontramos con varios problemas para realizar búsquedas:
+		\begin{itemize}
+			\item Escalabilidad
+			\item Volatilidad 
+			\item Variabilidad
+		\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Arquitectura de un buscador.}
+Los motores de búsqueda que operan en Internet tienen comúnmente una arquitectura centralizada, los elementos que componen esta arquitectura son:
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.6]{./img/modeloreferente.png}
+		\end{figure}
+		\begin{itemize}
+			\item \textbf{Crawler}: Se encarga de la agregación al sistema de los documentos que posteriormente serán indexados para su búsqueda.
+			\item \textbf{Indexer}: El indexador es el módulo que se encarga construir una estructura de acceso rápido llamada índice.
+			Existen diversos modelos de indexación algunos de ellos son:
+			\begin{itemize}
+				\item Modelo binario.
+				\item Modelo Vectorial.
+				\item Modelo Probabilistico.
+			\end{itemize}
+		
+		\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Arquitectura de un buscador.}
+
+	\begin{itemize}
+		\item \textbf{Searcher}: El buscador es aquel módulo que se encarga realizar las consultas sobre el índice.
+		\item \textbf{Dispatcher}: Es el encargado de la recepción de la consulta realizada desde el buscador y enviarla al Searcher para posteriormente obtener una lista ordenada en función de una puntuación denominada relevancia. Algunos métodos para calcular la relevancia son:
+		\begin{itemize}
+			\item Coeficiente de Jaccard en modelos de indexación binarios.
+			\item Coseno en modelos de indexación vectorial de tipo tf-idf.
+		\end{itemize}
+		
+	
+	\end{itemize}
+\end{frame}
+\begin{frame}
 	\frametitle{Arquitectura de Google}
 	\begin{figure}
 	\includegraphics[scale=0.33]{img/google_architecture.png}
@@ -83,6 +129,17 @@ Proporciona una medida de la importancia de la página en función de las págin
 \[
 PR(A)=(1-d)+d(\frac{PR(T_1)}{C(T_1)}+...+\frac{PR(T_n)}{C(T_n)})
 \]
+\end{frame}
+\begin{frame}
+	\frametitle{Enlaces de referencia.}
+	\begin{thebibliography}{9}
+		
+		\bibitem{Multi-tier architecture for Web Search Engines}
+		\url{http://www.cwr.cl/la-web/2003/stamped/15_risvik_k-updates.pdf}
+		\bibitem{The anatomy of a large-scale hypertextual Web search engineThe anatomy of a large-scale hypertextual Web search engine}
+		\url{http://www.sciencedirect.com/science/article/pii/S016975529800110X?via\%3Dihub}
+		
+	\end{thebibliography}
 \end{frame}
 \end{document}
               

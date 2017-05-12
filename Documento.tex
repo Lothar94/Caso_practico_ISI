@@ -110,26 +110,26 @@ Lothar Soto Palma} % Author
 	\newpage
 
 	\section{Introducción}
-	Actualmente los motores de búsqueda son necesarios en nuestras vidas, cuando un usuario tiene una necesidad de información se dirige a una fuente de conocimiento para intenter suplirla, debido al reciente crecimiento del número de webs, Internet se ha convertido en una fuente de conocimiento masiva, como consecuencia los motores de búsqueda web se han vuelto muy importantes y la necesidad de obtener una arquitectura para estos sistemas que óptimice la realización de búsquedas es ahora una necesidad. En este documento vamos a analizar cada uno de los elementos de la arquitectura de un motor de búsqueda.
+	Actualmente los motores de búsqueda son necesarios en nuestras vidas, cuando un usuario tiene una necesidad de información se dirige a una fuente de conocimiento para intentar suplirla, debido al reciente crecimiento del número de webs, Internet se ha convertido en una fuente de conocimiento masiva, como consecuencia los motores de búsqueda web se han vuelto muy importantes y la necesidad de obtener una arquitectura para estos sistemas que óptimice la realización de búsquedas es ahora una necesidad. En este documento vamos a analizar cada uno de los elementos de la arquitectura de un motor de búsqueda.
 
-	Pero antes de eso es necesario conocer el entorno en el que trabajan dichos motores de búsuqeda:
+	Pero antes de eso es necesario conocer el entorno en el que trabajan dichos motores de búsqueda:
 	\section{La WWW}
-	La WWW o World Wide Web es un sistema de distribución de documentos de hipertexto que están interconectados y son accesibles vía internet. El usuario a través de un navegador web visualiza el contenido proporcionado por la web compuesto por elementos multimedia y texto.
+	La WWW o World Wide Web es un sistema de distribución de documentos de hipertexto que están interconectados y son accesibles vía Internet. El usuario a través de un navegador web visualiza el contenido proporcionado por la web compuesto por elementos multimedia y texto.
 
 	Pero la web es un entorno con unas características un poco adversas a la hora de poder hacer búsquedas sobre ellas esto es debido a su escala, volatilidad y variabilidad de la calidad de las mismas.
 
 	En la web no hay un diseño general, aparte de incluir información verídica puede incluir información obsoleta y contradicciones, el contenido es generado dinámicamente en el tiempo por lo que es necesario volver a analizar cada web para incluirlas en los resultados de las búsquedas de forma rutinaria y por último tiene un gran crecimiento llegando a duplicarse cada pocos meses.
 
-	\section{Busquedas en internet}
+	\section{Búsquedas en Internet}
 	Un buscador web tiene que tener conocimiento de todas las webs para satisfacer las consultas de los usuarios la manera de hacer esto puede diferir dependiendo del sistema utilizado, el proceso más común es la construcción de un índice invertido donde las palabras de cada página son añadidas al índice que están enlazadas con los documentos en los que se encontró la palabra. El motor de búsqueda unicamente se encarga de escanear el índice para determinar los documentos que contienen las palabras de las que se compone la consulta y estos se añaden al conjunto de resultados.
 
-	Para realizar una consulta sobre internet es necesario indexar las páginas de las que se compone para ello es necesaria la paralelización y el uso de miles de máquinas, si tuvieramos 5000 máquinas podriamos indexar un billón de páginas aproximadamente en un día pero Internet es varias magnitudes más grande por lo que se necesita aumentar el número de máquinas y una forma inteligente de elegir que páginas webs indexar y cómo.
+	Para realizar una consulta sobre Internet es necesario indexar las páginas de las que se compone para ello es necesaria la paralelización y el uso de miles de máquinas, si tuviéramos 5000 máquinas podríamos indexar un billón de páginas aproximadamente en un día pero Internet es varias magnitudes más grande por lo que se necesita aumentar el número de máquinas y una forma inteligente de elegir que páginas webs indexar y cómo.
 
-	Pero hay otros problemas como el almacenamiento del índice, normalmente este no puede ser alojado en una única máquina asi que la cantidad de datos tiene que ser distribuido entre los discos de cada máquina. Además la distribución de los datos de al almacenamiento también ayuda al rendimiento de la consulta, la tarea de escanear las secciones de las webs y combinar las coincidencias en una etapa posterior.
+	Pero hay otros problemas como el almacenamiento del índice, normalmente este no puede ser alojado en una única máquina así que la cantidad de datos tiene que ser distribuido entre los discos de cada máquina. Además la distribución de los datos de al almacenamiento también ayuda al rendimiento de la consulta, la tarea de escanear las secciones de las webs y combinar las coincidencias en una etapa posterior.
 
 	\section{Modelo de arquitectura referente de motores de búsqueda}
 	\subsection{Elementos del modelo}
-	Los motores de búsqueda que operan en internet tienen comunmente una arquitectura centralizada, los elementos que componen esta arquitectura son:
+	Los motores de búsqueda que operan en Internet tienen comúnmente una arquitectura centralizada, los elementos que componen esta arquitectura son:
 	\begin{figure}[H]
 	    \centering
     	\includegraphics[scale=0.75]{./img/modeloreferente.png}
@@ -149,20 +149,20 @@ Lothar Soto Palma} % Author
 				\end{verbatim}
 				Pero este proceso básico no es lo único a tener en cuenta de hecho las arañas suelen necesitar la ayuda de los servidores webs que analizan, con la aportación de datos que permiten entre otras cosas excluir webs del servidor de la araña o moderar el número de peticiones por minuto.
 
-				Existen muchas heurísticas y algoritmos para el crawling y la mayoria de ellos se basan en el análisis de hipertexto en los documentos.
+				Existen muchas heurísticas y algoritmos para el crawling y la mayoría de ellos se basan en el análisis de hipertexto en los documentos.
 			\item \textbf{Indexer}: El indexador es el módulo que se encarga de a partir de los datos obtenidos con el proceso de crawling construir una estructura de acceso rápido (normalmente una tabla hash) llamada índice. Existen diversos modelos de indexación algunos de ellos son:
 
 				\begin{itemize}
-					\item Modelo binario: La interpretación principal de este modelo consiste en en la elaboración de un índice centrandose en la aparición o no de los términos en los documentos.
-					\item Modelo Vectorial: Este modelo a diferencia del alterior tiene en cuenta la frecuencia de aparición de un término en los documentos (tf), sin embargo a lo largo del tiempo han surgido modelos que tienen en cuenta la frecuencia inversa de aparición de un término en un documento (idf), y otro modelo que combina las dos ideas anteriorer llamado modelo tf-idf.
+					\item Modelo binario: La interpretación principal de este modelo consiste en en la elaboración de un índice centrándose en la aparición o no de los términos en los documentos.
+					\item Modelo Vectorial: Este modelo a diferencia del anterior tiene en cuenta la frecuencia de aparición de un término en los documentos (tf), sin embargo a lo largo del tiempo han surgido modelos que tienen en cuenta la frecuencia inversa de aparición de un término en un documento (idf). Otro modelo que combina las dos ideas anteriores es el llamado modelo tf-idf.
 					\item Modelo Probabilistico: El modelo probabilistico se centra en la probabilidad de aparición de un término en un documento.
 				\end{itemize}
 			\item \textbf{Searcher}: El buscador es aquel módulo que normalmente se encarga de el procesamiento de las consultas que se realizan normalmente a través de un entorno web con un navegador, es el encargado de la realización de consultas sobre el índice creado por el indexador anterior.
-			\item \textbf{Dispatcher}: Por último el dispatcher es el encargado de la recepción de la consulta realizada desde el buscador y enviarla al buscador que realizará el cotejamiento con el índice para posteriormente obtener una lista ordenada por una puntuación denominada relevancia de URLs que será mostrada a los usuarios a traves del cliente.
+			\item \textbf{Dispatcher}: Por último el dispatcher es el encargado de la recepción de la consulta realizada desde el buscador y enviarla al buscador que realizará el cotejamiento con el índice para posteriormente obtener una lista ordenada por una puntuación denominada relevancia de URLs que será mostrada a los usuarios a través del cliente.
 		\end{itemize}
 
 		\subsection{Medida de relevancia}
-		El grado de relevancia de un documento web es un medida que resulta necesaria definir para que el resto de procedimientos puedan trabajar correctamente, sin embargo la definición de esta medida no es simple puesto que depende normalmente del modelo de indexación que se lleve a cabo. La relevancia de un documento normalmente depende directamente de la consulta que se ha realizado, pero hay algunos casos en elas que se supone que la relevancia puede verse como la suma de dos componentes una que depende de la consulta llamada componente dinámica y otra que no depende llamada componente estática, por supuesto esta no es la única forma de medir la relevancia ya que no hay un método específico, otros ejemplos son:
+		El grado de relevancia de un documento web es un medida que resulta necesaria definir para que el resto de procedimientos puedan trabajar correctamente, sin embargo la definición de esta medida no es simple puesto que depende normalmente del modelo de indexación que se lleve a cabo. La relevancia de un documento normalmente depende directamente de la consulta que se ha realizado, pero hay algunos casos en los que se supone que la relevancia puede verse como la suma de dos componentes una que depende de la consulta llamada componente dinámica y otra que no depende llamada componente estática, por supuesto esta no es la única forma de medir la relevancia ya que no hay un método específico, otros ejemplos son:
 		\begin{itemize}
 			\item Coeficiente de Jaccard en modelos de indexación binarios.
 			\item Coseno en modelos de indexación vectorial de tipo tf-idf.
@@ -193,8 +193,8 @@ Lothar Soto Palma} % Author
 		\subsection{Escalabilidad}
 		Dada una agrupación de nodos de búsqueda (cluster) el particionamiento y la replicación son usados para crear una escalabilidad lineal en el tamaño y la valoración de la consulta.
 		\begin{itemize}
-			\item Particionamiento: El nodo de búsqueda tiene una parttición del índice completo. Cuando se recibe una consulta el dispatcher lo que va a hacer es enviar la misma a todos los nodos de búsqueda donde cada uno procesará la consulta y por último se combinarán los resultados de su agrupación. El tiempo de consulta en cada nodo ahora es reducido pasando de tener que analizar todo el índice en el modelo básico a analizar la parte correspondiente a cada nodo de búsqueda, pero el cuello de botella se suele en contrar en el mecanísmo de combinación de estos resultados.
-			\item Replicación: A través de la replicación de los nodos de búsqueda podemos incrementar la velocidad de procesamiento de una consulta, el dispatcher ahora usa un algoritmo de asignación round-robin para determinar a que nodo de entre los replicacos le enviará la consulta.
+			\item Particionamiento: El nodo de búsqueda tiene una partición del índice completo. Cuando se recibe una consulta el dispatcher lo que va a hacer es enviar la misma a todos los nodos de búsqueda donde cada uno procesará la consulta y por último se combinarán los resultados de su agrupación. El tiempo de consulta en cada nodo ahora es reducido pasando de tener que analizar todo el índice en el modelo básico a analizar la parte correspondiente a cada nodo de búsqueda, pero el cuello de botella se suele en centrar en el mecanismo de combinación de estos resultados.
+			\item Replicación: A través de la replicación de los nodos de búsqueda podemos incrementar la velocidad de procesamiento de una consulta, el dispatcher ahora usa un algoritmo de asignación round-robin para determinar a que nodo de entre los replicados le enviará la consulta.
 		\end{itemize}
 		\begin{figure}[H]
 				\centering
@@ -203,7 +203,7 @@ Lothar Soto Palma} % Author
 				\label{fig:my_label}
 		\end{figure}
 		\subsection{Arquitectura multinivel}
-		La idea consisten en agrupar los documentos en niveles, cada consulta comienza consultado en el nivel 1 y un algoritmo (fallthrough) decidirá si la consulta continuara ejecutandose en los niveles consecutivos.
+		La idea consisten en agrupar los documentos en niveles, cada consulta comienza consultado en el nivel 1 y un algoritmo (fallthrough) decidirá si la consulta continuara ejecutándose en los niveles consecutivos.
 		\subsubsection{Elementos del modelo}
 		\begin{itemize}
 			\item Mapeado de nivel: Dado un conjunto de documentos, existe una función llamada función de mapeado que toma el vector de características de cada documento y lo clasifica en un nivel.
@@ -220,14 +220,14 @@ Lothar Soto Palma} % Author
 		La separación de niveles es aquello que no parece ayudar mucho sin embargo lo que hacen es particionar los contenidos de un documento para descartar aquellos que no tienen relación alguna con la consulta más rápido por ejemplo:
 		\begin{itemize}
 			\item Nivel 1: Títulos y Links de todos los documentos.
-			\item Nivel 2: Cuerpo de una seleción de documentos.
+			\item Nivel 2: Cuerpo de una selección de documentos.
 		\end{itemize}
 
 	\begin{thebibliography}{9}
 
 		 \bibitem{Multi-tier architecture for Web Search Engines}
 		 \url{http://www.cwr.cl/la-web/2003/stamped/15_risvik_k-updates.pdf}
-		 \bibitem{The anatomy of a large-scale hypertextual Web search engineThe anatomy of a large-scale hypertextual Web search engine}
+		 \bibitem{The anatomy of a large-scale hypertextual Web search engine}
 		 \url{http://www.sciencedirect.com/science/article/pii/S016975529800110X?via\%3Dihub}
 
 	\end{thebibliography}
