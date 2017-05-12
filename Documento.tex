@@ -212,9 +212,16 @@ Lothar Soto Palma} % Author
 		\begin{figure}[H]
 				\centering
 				\includegraphics[scale=0.75]{./img/multitier2.png}
-				\caption{Escalabilidad del modelo}
+				\caption{Modelo multi-nivel}
 				\label{fig:my_label}
 		\end{figure}
+		\subsection{¿Cómo mejora esta arquitectura a la básica?}
+		El objetivo de esta arquitectura es mejorar el rendimiento del proceso de consultas al sistema, el algoritmo de fallthrough es el encargado de reducir el número de nodos de búsquedas a utilizar (se supone de forma eficiente) y esto lleva a que las consultas no tienen que cotejarse con los índices completos sino con particiones de los mismos.
+		La separación de niveles es aquello que no parece ayudar mucho sin embargo lo que hacen es particionar los contenidos de un documento para descartar aquellos que no tienen relación alguna con la consulta más rápido por ejemplo:
+		\begin{itemize}
+			\item Nivel 1: Títulos y Links de todos los documentos.
+			\item Nivel 2: Cuerpo de una seleción de documentos.
+		\end{itemize}
 
 	\begin{thebibliography}{9}
 
