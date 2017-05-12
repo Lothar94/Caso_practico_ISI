@@ -122,11 +122,11 @@ Lothar Soto Palma} % Author
 
 	\section{Busquedas en internet}
 	Un buscador web tiene que tener conocimiento de todas las webs para satisfacer las consultas de los usuarios la manera de hacer esto puede diferir dependiendo del sistema utilizado, el proceso más común es la construcción de un índice invertido donde las palabras de cada página son añadidas al índice que están enlazadas con los documentos en los que se encontró la palabra. El motor de búsqueda unicamente se encarga de escanear el índice para determinar los documentos que contienen las palabras de las que se compone la consulta y estos se añaden al conjunto de resultados.
-		
-	Para realizar una consulta sobre internet es necesario indexar las páginas de las que se compone para ello es necesaria la paralelización y el uso de miles de máquinas, si tuvieramos 5000 máquinas podriamos indexar un billón de páginas aproximadamente en un día pero Internet es varias magnitudes más grande por lo que se necesita aumentar el número de máquinas y una forma inteligente de elegir que páginas webs indexar y cómo. 
-	
+
+	Para realizar una consulta sobre internet es necesario indexar las páginas de las que se compone para ello es necesaria la paralelización y el uso de miles de máquinas, si tuvieramos 5000 máquinas podriamos indexar un billón de páginas aproximadamente en un día pero Internet es varias magnitudes más grande por lo que se necesita aumentar el número de máquinas y una forma inteligente de elegir que páginas webs indexar y cómo.
+
 	Pero hay otros problemas como el almacenamiento del índice, normalmente este no puede ser alojado en una única máquina asi que la cantidad de datos tiene que ser distribuido entre los discos de cada máquina. Además la distribución de los datos de al almacenamiento también ayuda al rendimiento de la consulta, la tarea de escanear las secciones de las webs y combinar las coincidencias en una etapa posterior.
-	 
+
 	\section{Modelo de arquitectura referente de motores de búsqueda}
 	\subsection{Elementos del modelo}
 	Los motores de búsqueda que operan en internet tienen comunmente una arquitectura centralizada, los elementos que componen esta arquitectura son:
@@ -157,7 +157,7 @@ Lothar Soto Palma} % Author
 					\item Modelo Vectorial: Este modelo a diferencia del alterior tiene en cuenta la frecuencia de aparición de un término en los documentos (tf), sin embargo a lo largo del tiempo han surgido modelos que tienen en cuenta la frecuencia inversa de aparición de un término en un documento (idf), y otro modelo que combina las dos ideas anteriorer llamado modelo tf-idf.
 					\item Modelo Probabilistico: El modelo probabilistico se centra en la probabilidad de aparición de un término en un documento.
 				\end{itemize}
-			\item \textbf{Searcher}: El buscador es aquel módulo que normalmente se encarga de el procesamiento de las consultasque se realizan normalmente a través de un entorno web con un navegador, es el encargado de la realización de consultas sobre el índice creado por el indexador anterior.
+			\item \textbf{Searcher}: El buscador es aquel módulo que normalmente se encarga de el procesamiento de las consultas que se realizan normalmente a través de un entorno web con un navegador, es el encargado de la realización de consultas sobre el índice creado por el indexador anterior.
 			\item \textbf{Dispatcher}: Por último el dispatcher es el encargado de la recepción de la consulta realizada desde el buscador y enviarla al buscador que realizará el cotejamiento con el índice para posteriormente obtener una lista ordenada por una puntuación denominada relevancia de URLs que será mostrada a los usuarios a traves del cliente.
 		\end{itemize}
 
@@ -167,7 +167,7 @@ Lothar Soto Palma} % Author
 			\item Coeficiente de Jaccard en modelos de indexación binarios.
 			\item Coseno en modelos de indexación vectorial de tipo tf-idf.
 		\end{itemize}
-		
+
 	\section{Modelo de arquitectura del motor de búsqueda de Google}
 		\subsection{Metodología}
 		Partiendo del modelo de arquitectura más general, vamos a ver algunos detalles particulares que incluye Google para optimizar los resultados de las búsquedas.
@@ -178,8 +178,8 @@ Lothar Soto Palma} % Author
 			\item Las páginas webs obtenidas mediante el crawling se almacenan comprimidas en un repositorio. La función de indexación descomprime los documentos y los parsea para crear el indice.
 			\item Otro aspecto a tener en cuenta es el texto de los enlaces, ya que normalmente contienen la mejor descripción de la página.
 		\end{itemize}
-		
-		
+
+
 		\subsection{PageRank}
 		Para mejorar la precisión de los resultados obtenidos en la búsqueda, Google hace uso de una estructura de grafo de la red asignando a cada enlace un peso que indica su calidad.De esta forma se calcula el llamado PageRank que proporciona una medida de la importancia de la página en función de las páginas que contienen enlaces a la misma. Este valor se calcula sumando el número de enlaces a la pagina normalizados por un parámetro $d$ que indica la importancia de la página de la que procede el enlace.
 
@@ -187,10 +187,35 @@ Lothar Soto Palma} % Author
 		\[
 		 PR(A)=(1-d)+d(\frac{PR(T_1)}{C(T_1)}+...+\frac{PR(T_n)}{C(T_n)})
 		\]
-		
-		\section{Modelo de arquitectura multi-capa para motores de búsqueda}
+
+		\section{Modelo de arquitectura multi-nivel para motores de búsqueda}
 		La principal diferencia de esta arquitectura es la introducción de nodos de búsqueda, un nodo de búsqueda contiene una partición del índice de búsqueda, una parte de todos los datos. Esto produce cambios en la escalabilidad del sistema y en la estructura del mismo.
-		\subsection{Elementos del modelo}
+		\subsection{Escalabilidad}
+		Dada una agrupación de nodos de búsqueda (cluster) el particionamiento y la replicación son usados para crear una escalabilidad lineal en el tamaño y la valoración de la consulta.
+		\begin{itemize}
+			\item Particionamiento: El nodo de búsqueda tiene una parttición del índice completo. Cuando se recibe una consulta el dispatcher lo que va a hacer es enviar la misma a todos los nodos de búsqueda donde cada uno procesará la consulta y por último se combinarán los resultados de su agrupación. El tiempo de consulta en cada nodo ahora es reducido pasando de tener que analizar todo el índice en el modelo básico a analizar la parte correspondiente a cada nodo de búsqueda, pero el cuello de botella se suele en contrar en el mecanísmo de combinación de estos resultados.
+			\item Replicación: A través de la replicación de los nodos de búsqueda podemos incrementar la velocidad de procesamiento de una consulta, el dispatcher ahora usa un algoritmo de asignación round-robin para determinar a que nodo de entre los replicacos le enviará la consulta.
+		\end{itemize}
+		\begin{figure}[H]
+				\centering
+				\includegraphics[scale=0.75]{./img/multitier.png}
+				\caption{Escalabilidad del modelo}
+				\label{fig:my_label}
+		\end{figure}
+		\subsection{Arquitectura multinivel}
+		La idea consisten en agrupar los documentos en niveles, cada consulta comienza consultado en el nivel 1 y un algoritmo (fallthrough) decidirá si la consulta continuara ejecutandose en los niveles consecutivos.
+		\subsubsection{Elementos del modelo}
+		\begin{itemize}
+			\item Mapeado de nivel: Dado un conjunto de documentos, existe una función llamada función de mapeado que toma el vector de características de cada documento y lo clasifica en un nivel.
+			\item Alforitmo Fallthrough: Cada consulta comienza en el nivel 1, este algoritmo va a determinar el camino de ejecuciones que seguirá la consulta en los consecutivos niveles en base a su valor de relevancia y número de coincidencias con el índice. Cuando el algoritmo decide que hay que consultar un nuevo nivel entonces el calculo de la relevancia se realiza mediante la combinación de los resultados anteriores.
+		\end{itemize}
+		\begin{figure}[H]
+				\centering
+				\includegraphics[scale=0.75]{./img/multitier2.png}
+				\caption{Escalabilidad del modelo}
+				\label{fig:my_label}
+		\end{figure}
+
 	\begin{thebibliography}{9}
 
 		 \bibitem{Multi-tier architecture for Web Search Engines}
@@ -203,4 +228,3 @@ Lothar Soto Palma} % Author
 \grid
 \grid
 \grid
-
