@@ -59,7 +59,9 @@
 \frametitle{Índice}
 \tableofcontents
 \end{frame}
+	\section{Introducción}
 \begin{frame}
+
 	\frametitle{Introducción}
 	Internet se ha convertido en una fuente de conocimiento masiva, como consecuencia los motores de búsqueda web se han vuelto muy importantes y la necesidad de obtener una arquitectura para estos sistemas que óptimice la realización de búsquedas es ahora una necesidad.
 	
@@ -71,6 +73,22 @@
 			\item Variabilidad
 		\end{itemize}
 \end{frame}
+\begin{frame}
+	\frametitle{¿Cómo se realiza una búsqueda?}
+	\begin{itemize}
+		\item 	Un buscador web tiene que tener conocimiento de todas las webs para satisfacer las consultas de
+		los usuarios.
+		\item El proceso
+		más común es la construcción de un índice invertido donde las palabras de cada página son
+		añadidas al índice que están enlazadas con los documentos en los que se encontró la palabra.
+		\item El
+		motor de búsqueda unicamente se encarga de escanear el índice para determinar los documentos
+		que contienen las palabras de las que se compone la consulta y estos se añaden al conjunto de
+		resultados.
+	\end{itemize}
+ 
+\end{frame}
+\section{Arquitectura de un buscador.}
 \begin{frame}
 	\frametitle{Arquitectura de un buscador.}
 Los motores de búsqueda que operan en Internet tienen comúnmente una arquitectura centralizada, los elementos que componen esta arquitectura son:
@@ -105,6 +123,7 @@ Los motores de búsqueda que operan en Internet tienen comúnmente una arquitect
 	
 	\end{itemize}
 \end{frame}
+\section{Caso particular: Google-}
 \begin{frame}
 	\frametitle{Arquitectura de Google}
 	\begin{figure}
@@ -112,7 +131,7 @@ Los motores de búsqueda que operan en Internet tienen comúnmente una arquitect
 \end{figure}
 	\end{frame}
 \begin{frame}
-	\frametitle{}
+	\frametitle{Metodología}
 \begin{itemize}
 	\item Las estructuras de datos usadas están optimizadas para manejar grandes colecciones de datos.
 	\item Se hace uso del modelo MapReduce para la creación de los índices.
