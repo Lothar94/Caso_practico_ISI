@@ -5,9 +5,9 @@
 % Feel free to distribute this template, but please keep the
 % referal to TeXample.net.
 % Date: Nov 2006
-% 
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% How to use writeLaTeX: 
+% How to use writeLaTeX:
 %
 % You edit the source code here on the left, and the preview on the
 % right shows you the result within a few seconds.
@@ -64,12 +64,12 @@
 
 	\frametitle{Introducción}
 	Internet se ha convertido en una fuente de conocimiento masiva, como consecuencia los motores de búsqueda web se han vuelto muy importantes y la necesidad de obtener una arquitectura para estos sistemas que óptimice la realización de búsquedas es ahora una necesidad.
-	
+
 	\medskip
 	En la web nos encontramos con varios problemas para realizar búsquedas:
 		\begin{itemize}
 			\item Escalabilidad
-			\item Volatilidad 
+			\item Volatilidad
 			\item Variabilidad
 		\end{itemize}
 \end{frame}
@@ -86,11 +86,11 @@
 		que contienen las palabras de las que se compone la consulta y estos se añaden al conjunto de
 		resultados.
 	\end{itemize}
- 
+
 \end{frame}
-\section{Arquitectura de un buscador.}
+\section{Arquitectura de un buscador web.}
 \begin{frame}
-	\frametitle{Arquitectura de un buscador.}
+	\frametitle{Arquitectura de un buscador web.}
 Los motores de búsqueda que operan en Internet tienen comúnmente una arquitectura centralizada, los elementos que componen esta arquitectura son:
 		\begin{figure}[H]
 			\centering
@@ -105,12 +105,12 @@ Los motores de búsqueda que operan en Internet tienen comúnmente una arquitect
 				\item Modelo Vectorial.
 				\item Modelo Probabilistico.
 			\end{itemize}
-		
+
 		\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Arquitectura de un buscador.}
+	\frametitle{Arquitectura de un buscador web.}
 
 	\begin{itemize}
 		\item \textbf{Searcher}: El buscador es aquel módulo que se encarga realizar las consultas sobre el índice.
@@ -119,8 +119,8 @@ Los motores de búsqueda que operan en Internet tienen comúnmente una arquitect
 			\item Coeficiente de Jaccard en modelos de indexación binarios.
 			\item Coseno en modelos de indexación vectorial de tipo tf-idf.
 		\end{itemize}
-		
-	
+
+
 	\end{itemize}
 \end{frame}
 \section{Caso particular: Google-}
@@ -138,7 +138,7 @@ Los motores de búsqueda que operan en Internet tienen comúnmente una arquitect
 	\item El crawling se realiza usando una gran cantidad de crawlers de forma distribuida.
 	\item Las páginas webs obtenidas mediante el crawling se almacenan comprimidas en un repositorio. La función de indexación descomprime los documentos y los parsea para crear el indice.
 	\item Otro aspecto a tener en cuenta es el texto de los enlaces, ya que normalmente contienen la mejor descripción de la página.
-\end{itemize}		
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -149,17 +149,64 @@ Proporciona una medida de la importancia de la página en función de las págin
 PR(A)=(1-d)+d(\frac{PR(T_1)}{C(T_1)}+...+\frac{PR(T_n)}{C(T_n)})
 \]
 \end{frame}
+\section{Arquitectura multi-nivel para motores de búsqueda}
+\begin{frame}
+	\frametitle{Arquitectura multi-nivel. Escalabilidad}
+	\begin{itemize}
+		\item Particionamiento: El nodo de búsqueda tiene una partición del índice completo. El dispatcher lo que va a hacer es enviar la misma consulta a todos los nodos de búsqueda donde cada uno procesará la consulta combinarán los resultados de su agrupación.
+		\begin{itemize}
+			\item Tiempo reducido no se analiza el índice completo en una consulta.
+			\item El mecanismo de combinación de resultados puede ser cuello de botella
+		\end{itemize}
+		\item Replicación: Replicación de los nodos de búsqueda con el objetivo incrementar la velocidad de procesamiento de una consulta, el dispatcher ahora usa un algoritmo de asignación para determinar a que nodo de entre los replicados le enviará la consulta.
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Arquitectura multi-nivel. Escalabilidad}
+	\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.75]{./img/multitier.png}
+			\caption{Escalabilidad del modelo}
+			\label{fig:my_label}
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Arquitectura multi-nivel}
+	\begin{itemize}
+		\item	La idea principal consiste en la agrupación de los documentos en niveles, conjuntos de documentos parecidos.
+		\item La consulta comienza cotejandola con el nivel 1 de documentos.
+		\item Elementos principales del modelo:
+			\begin{itemize}
+				\item Mapeado de nivel: Examina las propiedades de un documento y lo clasifica en un nivel.
+				\item Algoritmo de fallthroug: Determina si la consulta debe avanzar al siguiente nivel en base a la relevancia del documento relativa a la combinación de resultados de cada nivel.
+			\end{itemize}
+		\item Ventajas del modelo:
+			\begin{itemize}
+				\item Se reduce el número de nodos de búsqueda a cotejar => Mejora de rendimiento del procesamiento de consultas.
+				\item Separación de información de cada web en niveles => Mejora de rendimiento del procesamiento de consultas.
+			\end{itemize}
+	\end{itemize}
+	\begin{frame}
+		\frametitle{Arquitectura multi-nivel}
+		\begin{figure}[H]
+				\centering
+				\includegraphics[scale=0.75]{./img/multitier2.png}
+				\caption{Escalabilidad del modelo}
+				\label{fig:my_label}
+		\end{figure}
+		\end{itemize}
+\end{frame}
+
 \begin{frame}
 	\frametitle{Enlaces de referencia.}
 	\begin{thebibliography}{9}
-		
+		\bibitem{Searching the Internet}
+		\url{http://dx.doi.org/10.1109/MS.2012.39}
 		\bibitem{Multi-tier architecture for Web Search Engines}
 		\url{http://www.cwr.cl/la-web/2003/stamped/15_risvik_k-updates.pdf}
 		\bibitem{The anatomy of a large-scale hypertextual Web search engineThe anatomy of a large-scale hypertextual Web search engine}
 		\url{http://www.sciencedirect.com/science/article/pii/S016975529800110X?via\%3Dihub}
-		
+
 	\end{thebibliography}
 \end{frame}
 \end{document}
-              
-            
