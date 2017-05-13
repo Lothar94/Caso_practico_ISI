@@ -72,6 +72,10 @@
 			\item Volatilidad
 			\item Variabilidad
 		\end{itemize}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.3]{./img/WWW}
+		\end{figure}
 \end{frame}
 \begin{frame}
 	\frametitle{¿Cómo se realiza una búsqueda?}
@@ -150,15 +154,16 @@ PR(A)=(1-d)+d(\frac{PR(T_1)}{C(T_1)}+...+\frac{PR(T_n)}{C(T_n)})
 \]
 \end{frame}
 \section{Arquitectura multi-nivel para motores de búsqueda}
+
 \begin{frame}
 	\frametitle{Arquitectura multi-nivel. Escalabilidad}
 	\begin{itemize}
-		\item Particionamiento: El nodo de búsqueda tiene una partición del índice completo. El dispatcher lo que va a hacer es enviar la misma consulta a todos los nodos de búsqueda donde cada uno procesará la consulta combinarán los resultados de su agrupación.
+		\item \textbf{Particionamiento}: El nodo de búsqueda tiene una partición del índice completo. El dispatcher lo que va a hacer es enviar la misma consulta a todos los nodos de búsqueda donde cada uno procesará la consulta combinarán los resultados de su agrupación.
 		\begin{itemize}
 			\item Tiempo reducido no se analiza el índice completo en una consulta.
 			\item El mecanismo de combinación de resultados puede ser cuello de botella
 		\end{itemize}
-		\item Replicación: Replicación de los nodos de búsqueda con el objetivo incrementar la velocidad de procesamiento de una consulta, el dispatcher ahora usa un algoritmo de asignación para determinar a que nodo de entre los replicados le enviará la consulta.
+		\item \textbf{Replicación}: Replicación de los nodos de búsqueda con el objetivo incrementar la velocidad de procesamiento de una consulta, el dispatcher ahora usa un algoritmo de asignación para determinar a que nodo de entre los replicados le enviará la consulta.
 	\end{itemize}
 \end{frame}
 \begin{frame}
@@ -173,19 +178,20 @@ PR(A)=(1-d)+d(\frac{PR(T_1)}{C(T_1)}+...+\frac{PR(T_n)}{C(T_n)})
 \begin{frame}
 	\frametitle{Arquitectura multi-nivel}
 	\begin{itemize}
-		\item	La idea principal consiste en la agrupación de los documentos en niveles, conjuntos de documentos parecidos.
+		\item La idea principal consiste en la agrupación de los documentos en niveles, conjuntos de documentos parecidos.
 		\item La consulta comienza cotejandola con el nivel 1 de documentos.
-		\item Elementos principales del modelo:
+		\item \textbf{Elementos principales} del modelo:
 			\begin{itemize}
-				\item Mapeado de nivel: Examina las propiedades de un documento y lo clasifica en un nivel.
-				\item Algoritmo de fallthroug: Determina si la consulta debe avanzar al siguiente nivel en base a la relevancia del documento relativa a la combinación de resultados de cada nivel.
+				\item \textbf{Mapeado de nivel}: Examina las propiedades de un documento y lo clasifica en un nivel.
+				\item \textbf{Algoritmo de fallthroug}: Determina si la consulta debe avanzar al siguiente nivel en base a la relevancia del documento relativa a la combinación de resultados de cada nivel.
 			\end{itemize}
-		\item Ventajas del modelo:
+		\item \textbf{Ventajas} del modelo:
 			\begin{itemize}
 				\item Se reduce el número de nodos de búsqueda a cotejar => Mejora de rendimiento del procesamiento de consultas.
 				\item Separación de información de cada web en niveles => Mejora de rendimiento del procesamiento de consultas.
 			\end{itemize}
 	\end{itemize}
+\end{frame}
 	\begin{frame}
 		\frametitle{Arquitectura multi-nivel}
 		\begin{figure}[H]
@@ -194,7 +200,6 @@ PR(A)=(1-d)+d(\frac{PR(T_1)}{C(T_1)}+...+\frac{PR(T_n)}{C(T_n)})
 				\caption{Escalabilidad del modelo}
 				\label{fig:my_label}
 		\end{figure}
-		\end{itemize}
 \end{frame}
 
 \begin{frame}
